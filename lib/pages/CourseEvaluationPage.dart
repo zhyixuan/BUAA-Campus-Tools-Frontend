@@ -39,6 +39,7 @@ class _CourseEvaluationPageState extends State<CourseEvaluationPage> {
   String _courseType;
   String _courseName;
   String _teacher;
+
   //下滑刷新相关
   bool _firstIn = true;
 
@@ -47,7 +48,6 @@ class _CourseEvaluationPageState extends State<CourseEvaluationPage> {
 
   UpdateInfo remoteInfo;
   static int isUpdate = 1;
-
 
   //回到顶部悬浮按扭相关
   var _scrollController = ScrollController();
@@ -566,6 +566,10 @@ class _CourseEvaluationPageState extends State<CourseEvaluationPage> {
               _teacher.isEmpty &&
               _department == null &&
               _courseType == null)) {
+            _page = 1;
+            _scrollController.animateTo(0.0,
+                duration: Duration(milliseconds: 500),
+                curve: Curves.decelerate);
             searchEvaluationCourseList();
           } else {
             getDefaultList();
