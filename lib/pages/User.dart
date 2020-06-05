@@ -936,7 +936,9 @@ class SchoolCalendarStr {
     if (json['ddl'] != null) {
       ddl = new List<Ddl>();
       json['ddl'].forEach((v) {
-        ddl.add(new Ddl.fromJson(v));
+        if((v['ddl'] as String).length > 0){
+          ddl.add(new Ddl.fromJson(v));
+        }
       });
     }
   }
@@ -964,11 +966,16 @@ class Ddl {
 
   Ddl.fromJson(Map<String, dynamic> json) {
     String ddlStr = json['ddl'] as String;
-    List<String> ddlInfo = ddlStr.split(' ');
     course = json['course'];
     homework = json['homework'];
-    ddlDay = DateTime.parse(ddlInfo[0]);
-    ddlSecond = ddlInfo[1];
+    if(ddlStr.length==0){
+      ddlDay = DateTime.now();
+      ddlSecond == "未规定截止时间";
+    }else{
+      List<String> ddlInfo = ddlStr.split(' ');
+      ddlDay = DateTime.parse(ddlInfo[0]);
+      ddlSecond = ddlInfo[1];
+    }
   }
 }
 
@@ -1048,7 +1055,6 @@ Future<schoolCalendar> getSchoolCalendar(String studentID) async {
     }
   }
   String ss = response.data;
-
 //  String ss = await rootBundle.loadString('assets/data/courseTable1.json');
   try {
     dynamic jsonList = json.decode(ss);
