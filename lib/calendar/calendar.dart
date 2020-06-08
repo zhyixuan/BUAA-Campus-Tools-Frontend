@@ -219,9 +219,8 @@ class _RCalendarWidgetState extends State<RCalendarWidget> {
     for (int i = 0; i < ddlForDay.length; i++) {
       List<String> timeStr = listForDay[i].ddlSecond.split(':');
       String time = timeStr[0] + ': ' + timeStr[1];
-      ddlList.add(SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
+      ddlList.add(
+          Row(
             children: <Widget>[
               SizedBox(
                 width: 5,
@@ -233,18 +232,20 @@ class _RCalendarWidgetState extends State<RCalendarWidget> {
               SizedBox(
                 width: 20,
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(listForDay[i].course),
-                    Text(listForDay[i].homework),
-                  ],
+              Expanded(
+                child:Container(
+                  margin: EdgeInsets.fromLTRB(0, 5, 5, 5),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(listForDay[i].course),
+                      Text(listForDay[i].homework),
+                    ],
+                  ),
                 ),
               ),
             ],
-          )));
+          ));
       ddlList.add(Divider(height: 1.0, indent: 0.0, color: Colors.black87));
     }
     //ddlList.removeLast();
